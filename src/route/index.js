@@ -5,7 +5,7 @@ const router = Router()
 
 router.get("/", (req, res) => {
   res.json({
-    message: "Welcome to Forum API",
+    message: "Welcome to Portfolio API",
   });
 });
 
