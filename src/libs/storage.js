@@ -9,7 +9,7 @@ import path from 'path';
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadDir = path.join(__dirname, '../uploads/');
+    const uploadDir = path.join(__dirname, '../Files/');
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
