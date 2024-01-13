@@ -14,6 +14,7 @@ import authRouter from "./route/auth.js"
 import publicationsRouter from "./route/publication.js"
 import skillRouter from "./route/skillRouter.js"
 import imgRouter from "./route/imgRouter.js"
+import cvRouter from "./route/cvRouter.js"
 
 
 app.use("/api", indexRouter);
@@ -21,6 +22,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/publications", publicationsRouter);
 app.use("/api/skill", skillRouter);
 app.use("/api/img", imgRouter);
+app.use("/api/CV", cvRouter)
 
 
 app.use(express.json());
