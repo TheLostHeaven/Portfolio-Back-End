@@ -4,7 +4,7 @@ import ImgFile from '../Schemas/Img.js'
 //Create
 export const createPublication = async (req, res) => {
 
-    const { title, content, date } = req.body;
+    const { title, tech, content, date } = req.body;
     const latestImage = await ImgFile.findOne().sort({ uploadedAt: -1 }).limit(1);
     const latestImageId = latestImage._id;
 
@@ -13,6 +13,7 @@ export const createPublication = async (req, res) => {
     const newPublication = new Publication({
       title,
       content,
+      tech,
       img: latestImageId,
       date,
     });
@@ -51,6 +52,7 @@ export const updatePublicationById = async (req, res) => {
     await Publication.findByIdAndUpdate(id, {
       title: title,
       content: content,
+      tech: tech,
       img: img,
       date: date
     });
