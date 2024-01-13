@@ -8,6 +8,9 @@ const publicationSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  tech: {
+    type: String
+  },
   img: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ImgFile'
