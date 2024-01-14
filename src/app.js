@@ -7,6 +7,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(
+  cors({
+      origin: "http://localhost:4200",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true,
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+  })
+);
+
 //Routes
 
 import indexRouter from "./route/index.js"
@@ -27,15 +37,8 @@ app.use("/api/CV", cvRouter)
 
 app.use(express.json());
 
-app.use(
-  cors({
-      origin: "*",
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      credentials: true,
-      preflightContinue: false,
-      optionsSuccessStatus: 204,
-  })
-);
+
+
 
 
 export default app;
