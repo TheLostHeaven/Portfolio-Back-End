@@ -5,6 +5,8 @@ import ImgFile from '../Schemas/Img.js'
 export const createPublication = async (req, res) => {
 
     const { title, tech, content, date } = req.body;
+    if (!title || !tech || !content) {
+      return res.status(400).json({ msg: 'Todos los campos son obligatorios' });}
     const latestImage = await ImgFile.findOne().sort({ uploadedAt: -1 }).limit(1);
     const latestImageId = latestImage._id;
 
