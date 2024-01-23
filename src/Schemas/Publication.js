@@ -13,7 +13,7 @@ const publicationSchema = new mongoose.Schema({
   },
   img: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ImgFile'
+    ref: 'imgfile'
   },
   date: {
     type: Date,
