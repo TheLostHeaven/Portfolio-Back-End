@@ -1,5 +1,7 @@
 import ImgFile from "../Schemas/Img.js"
 import upload from "../libs/storage.js"
+import fs from 'fs';
+import path from 'path';
 
 //Create
 export const createImg = (req, res) => {
@@ -26,16 +28,55 @@ export const createImg = (req, res) => {
 };
 
 //Get
+// export const getImg = async (req, res) => {
+//   try {
+//     const Imgs = await ImgFile.find({});
+//     res.sendFile(`/src/public/uploads/${Imgs.imgfile}`);
+//     return res.json(Imgs)
+//   }catch (error){
+//     return res.status(500).json({ msg: error.message})
+//   }
+
+// }
+
+// Ruta para obtener imágenes
 export const getImg = async (req, res) => {
   try {
-    const Imgs = await ImgFile.find({});
-    res.sendFile(`/src/public/uploads/${Imgs.imgfile}`);
-    return res.json(Imgs)
-  }catch (error){
-    return res.status(500).json({ msg: error.message})
-  }
+    // Verificar si se proporciona un ID en los parámetros de la solicitud
+    const { id } = req.params;
 
-}
+    if (id) {
+      // Si hay un ID, buscar y devolver la imagen por ID
+      const img = await ImgFile.findById(id);
+
+      if (!img) {
+        return res.status(404).json({ msg: 'Imagen no encontrada' });
+      }
+
+      // Obtener la ruta completa al archivo de imagen
+      const imagePath = path.join('/src/public/uploads/', img.imgfile);
+
+      // Verificar si el archivo de imagen existe
+      if (fs.existsSync(imagePath)) {
+        // Enviar la imagen como respuesta
+        res.sendFile(imagePath);
+      } else {
+        return res.status(404).json({ msg: 'Archivo de imagen no encontrado' });
+      }
+    } else {
+      // Si no hay ID, devolver todas las imágenes
+      const Imgs = await ImgFile.find({});
+      const imagesWithPath = Imgs.map(img => ({
+        ...img._doc,
+        imgPath: path.join('/src/public/uploads/', img.imgfile)
+      }));
+
+      return res.json(imagesWithPath);
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
 
 //GetId
 export const getImgById = async (req, res) => {
