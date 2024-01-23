@@ -17,6 +17,7 @@ export const createImg = (req, res) => {
       const ImgSaved = await newImg.save();
 
       res.status(201).json({ message: 'Imagen guardada con éxito' });
+      console.log(req.file)
     } catch (error) {
       console.error(error);
       return res.status(500).json(error);
@@ -28,17 +29,20 @@ export const createImg = (req, res) => {
 export const getImg = async (req, res) => {
   try {
     const Imgs = await ImgFile.find({});
+    res.sendFile(`../public/uploads${Imgs.imgfile}`);
     return res.json(Imgs)
   }catch (error){
     return res.status(500).json({ msg: error.message})
   }
-};
+
+}
 
 //GetId
 export const getImgById = async (req, res) => {
   try{
     const {id} = req.params;
     const Imgs = await ImgFile.findById(id);
+    res.sendFile(`../public/uploads${Imgs.imgfile}`);
     res.status(200).json(Imgs)
   }catch (error){
     return res.status(500).json({ msg: error.message})
