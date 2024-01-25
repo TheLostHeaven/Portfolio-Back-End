@@ -14,7 +14,6 @@ export const createImg = (req, res) => {
     try {
 
       const newImg = new ImgFile({
-        imgId: req.file.filename,
         imgfile: req.file.filename,
       });
       const ImgSaved = await newImg.save();
