@@ -3,13 +3,16 @@ import mongoose from "mongoose";
 const publicationSchema = new mongoose.Schema({
   title: {
     type: String,
-    trim: true
+    trim: true,
+    maxLenth: 24
   },
   content: {
     type: String,
+    maxLenth: 24
   },
   tech: {
-    type: String
+    type: String,
+    maxLenth: 24
   },
   img: {
     type: mongoose.Schema.Types.ObjectId,
